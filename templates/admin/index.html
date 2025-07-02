@@ -1,0 +1,44 @@
+{% extends "base_canonical.html" %} {% block content %}
+<section class="p-section">
+    <div class="p-strip">
+        <div class="row--50-50">
+            <div class="col">
+                <h2 class="p-heading--4">
+                    Formassembly Form List
+                </h2>
+            </div>
+            <div class="col">
+                <a class="p-button--positive" href="{{ url_for('admin.add_fa_form') }}">
+                    Add Form
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="u-fixed-width">
+        <table aria-label="FA Form List">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Link</td>
+              <td>Description</td>
+              <td>Thanks Page</td>
+              <td>Require Login</td>
+              <td>Require JS</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for form in forms %}
+            <tr>
+                <td>{{ form.name }}</td>
+                <td>{{ form.link }}</td>
+                <td>{{ form.description }}</td>
+                <td>{{ form.thanks_page }}</td>
+                <td>{{ form.require_login }}</td>
+                <td>{{ form.require_js }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

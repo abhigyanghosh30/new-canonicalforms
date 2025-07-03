@@ -3,7 +3,7 @@
   <div class="row--25-75">
     {% if "side_nav_sections" in section %}
       {% with side_nav_sections=section.side_nav_sections %}
-        {% include "navigation/partials/_tab-panel.html" %}
+        {% include "canonical_navigation/partials/_tab-panel.html" %}
       {% endwith %}
       <div class=" col">
         {% for nav_section in section.side_nav_sections %}
@@ -16,13 +16,13 @@
               <div class="col-{% if nav_section.secondary_links %}6{% else %}9{% endif %}">
                 {% set columns = 2 if nav_section.secondary_links else 3 %}
                 {% with primary_links=nav_section.primary_links, columns=columns %}
-                  {% include "navigation/partials/_primary-links.html" %}
+                  {% include "canonical_navigation/partials/_primary-links.html" %}
                 {% endwith %}
               </div>
               {% if nav_section.secondary_links %}
                 <div class="col-3">
                   {% with list=nav_section.secondary_links %}
-                    {% include "navigation/partials/_link-list.html" %}
+                    {% include "canonical_navigation/partials/_link-list.html" %}
                   {% endwith %}
                 </div>
               {% endif %}
@@ -53,13 +53,13 @@
             <div class="row u-no-padding">
               <div class="col-9">
                 {% with primary_links=section.primary_links, columns=3 %}
-                  {% include "navigation/partials/_primary-links.html" %}
+                  {% include "canonical_navigation/partials/_primary-links.html" %}
                 {% endwith %}
               </div>
               {% if section.secondary_links %}
                 <div class="col-3">
                   {% with list=section.secondary_links %}
-                    {% include "navigation/partials/_link-list.html" %}
+                    {% include "canonical_navigation/partials/_link-list.html" %}
                   {% endwith %}
                 </div>
               {% endif %}
@@ -69,14 +69,14 @@
               {% for list in section.sibling_lists %}
                 <div class="col-3">
                   {% with list=list, inverted_links=true %}
-                    {% include "navigation/partials/_link-list.html" %}
+                    {% include "canonical_navigation/partials/_link-list.html" %}
                   {% endwith %}
                 </div>
               {% endfor %}
               {% if section.preview_secondary_links %}
                 <div class="col-6">
                   {% with preview_secondary_links=section.preview_secondary_links %}
-                    {% include "navigation/partials/_preview-links.html" %}
+                    {% include "canonical_navigation/partials/_preview-links.html" %}
                   {% endwith %}
                 </div>
               {% endif %}

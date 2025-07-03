@@ -1,4 +1,4 @@
-{% extends "base_canonical.html" %} {% block content %}
+{% extends "base.html" %} {% block content %}
 <section class="p-section">
     <div class="p-strip">
         <div class="row--50-50">
@@ -24,17 +24,19 @@
               <td>Thanks Page</td>
               <td>Require Login</td>
               <td>Require JS</td>
+              <td>Actions</td>
             </tr>
           </thead>
           <tbody>
             {% for form in forms %}
             <tr>
                 <td>{{ form.title }}</td>
-                <td><a href="/form/{{ form.id }}">View</a></td>
+                <td><a href="/{{ form.id }}">View</a></td>
                 <td>{{ form.description }}</td>
                 <td>{{ form.thanks_page }}</td>
                 <td>{{ form.require_login }}</td>
                 <td>{{ form.require_js }}</td>
+                <td><a href="/admin/fa-form/{{form.id}}/edit"><i class="p-icon--edit">Edit</i></a></td>
             </tr>
             {% endfor %}
           </tbody>

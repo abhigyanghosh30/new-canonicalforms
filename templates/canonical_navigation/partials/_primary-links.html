@@ -9,7 +9,7 @@
         <ul class="p-list">
           {% for link in links_list %}
             {% with link = link, desktop=true %}
-              {% include "navigation/partials/_list-item.html" %}
+              {% include "canonical_navigation/partials/_list-item.html" %}
             {% endwith %}
           {% endfor %}
         </ul>

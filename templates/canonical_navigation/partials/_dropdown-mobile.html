@@ -27,14 +27,14 @@
             {% if nav_section.primary_links %}
               {% for link in nav_section.primary_links.links %}
                 {% with link = link, data_level = "2" %}
-                  {% include "navigation/partials/_list-item.html" %}
+                  {% include "canonical_navigation/partials/_list-item.html" %}
                 {% endwith %}
               {% endfor %}
             {% endif %}
             {% if nav_section.secondary_links %}
               {% if nav_section.secondary_links.title %}
                 {% with title=nav_section.secondary_links.title, data_level=2 %}
-                  {% include "navigation/partials/_list-heading.html" %}
+                  {% include "canonical_navigation/partials/_list-heading.html" %}
                 {% endwith %}
               {% endif %}
               {% for link in nav_section.secondary_links.links %}
@@ -66,24 +66,24 @@
       {% for list in section.sibling_lists %}
         {% if list.title %}
           {% with title= list.title , data_level=1 %}
-            {% include "navigation/partials/_list-heading.html" %}
+            {% include "canonical_navigation/partials/_list-heading.html" %}
           {% endwith %}
         {% endif %}
         {% for link in list.links %}
           {% with link = link, data_level = "1" %}
-            {% include "navigation/partials/_list-item.html" %}
+            {% include "canonical_navigation/partials/_list-item.html" %}
           {% endwith %}
         {% endfor %}
       {% endfor %}
     {% elif section.primary_links %}
       {% if section.primary_links.title %}
         {% with title=section.primary_links.title, data_level=1 %}
-          {% include "navigation/partials/_list-heading.html" %}
+          {% include "canonical_navigation/partials/_list-heading.html" %}
         {% endwith %}
       {% endif %}
       {% for link in section.primary_links.links %}
         {% with link = link, data_level = "1" %}
-          {% include "navigation/partials/_list-item.html" %}
+          {% include "canonical_navigation/partials/_list-item.html" %}
         {% endwith %}
       {% endfor %}
     {% endif %}
@@ -91,7 +91,7 @@
     {% if section.secondary_links %}
       {% if section.secondary_links.title %}
         {% with title=section.secondary_links.title, data_level=1 %}
-          {% include "navigation/partials/_list-heading.html" %}
+          {% include "canonical_navigation/partials/_list-heading.html" %}
         {% endwith %}
       {% endif %}
       {% for link in section.secondary_links.links %}

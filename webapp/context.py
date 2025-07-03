@@ -19,7 +19,7 @@ def build_navigation(id, title):
     """
     meganav_section = meganav_data[id]
     html_string = render_template_string(
-        '{% include "navigation/dropdown.html" %}',
+        '{% include "canonical_navigation/dropdown.html" %}',
         id=id,
         title=title,
         section=meganav_section,

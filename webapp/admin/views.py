@@ -42,3 +42,23 @@ def add_fa_form():
         db.session.add(form)
         db.session.commit()
         return flask.redirect(flask.url_for("admin.index"))
+
+@login_canonicalstaff
+@bp.route("/fa-form/<formid>/edit", methods=["GET", "POST"])
+def edit_fa_form(formid):
+    form = db.session.execute(db.select(FAForm).filter_by(id=formid)).scalar_one_or_none()
+    if not form:
+        flask.abort(404)
+
+    if flask.request.method == "GET":
+        return render_template("admin/fa-form/edit.html", form=form)
+    elif flask.request.method == "POST":
+        form.title = flask.request.form.get("title")
+        form.description = flask.request.form.get("description")
+        form.require_login = flask.request.form.get("require_login") == "on"
+        form.raw_content = flask.request.form.get("raw_content")
+        form.require_js = flask.request.form.get("require_js") == "on"
+        form.thanks_page = flask.request.form.get("thanks_page")
+        form.launchpad_teams = flask.request.form.get("launchpad_team", "").strip()
+        db.session.commit()
+        return flask.redirect(flask.url_for("admin.index"))

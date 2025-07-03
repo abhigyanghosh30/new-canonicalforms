@@ -9,6 +9,7 @@ from webapp.auth import views as auth_views
 from webapp.admin import views as admin_views
 from webapp.admin.models import db
 from webapp.context import build_navigation, split_list, versioned_static
+from webapp.forms.views import render_form
 
 app = flask.Flask(__name__)
 app.config.from_prefixed_env()
@@ -17,10 +18,11 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_SQLALCHEMY_DATABAS
 db.init_app(app)
 with app.app_context():
     db.create_all()
-    
+
 app.register_blueprint(admin_views.bp)
 app.register_blueprint(auth_views.bp)
 
+app.add_url_rule("/<formid>", view_func=render_form, methods=["GET"])
 
 @app.route("/")
 def index():

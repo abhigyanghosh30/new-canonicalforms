@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ form.title }}{% endblock %}
+
+{% block navigation %}
+{% include "canonical_navigation/navigation.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="u-fixed-width">
+    {{ form.raw_content | safe }}
+</div>
+{% endblock %}

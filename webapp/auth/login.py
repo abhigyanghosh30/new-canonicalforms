@@ -20,6 +20,9 @@ def user_info(user_session):
         return {
             "fullname": user_session["openid"]["fullname"],
             "email": user_session["openid"]["email"],
+            "nickname": user_session["openid"]["nickname"],
+            "firstname": user_session["openid"]["fullname"].split(" ")[0],
+            "lastname": " ".join(user_session["openid"]["fullname"].split(" ")[1:]),
         }
     else:
         return None

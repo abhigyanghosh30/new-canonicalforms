@@ -16,17 +16,17 @@ def render_form(formid):
         abort(404)
 
     if form.require_login and "openid" not in flask.session:
-        return flask.redirect(flask.url_for("auth.login", next=flask.request.path))
+        return flask.redirect("/auth/login?next="+flask.request.path)
 
     user = user_info(flask.session)
     if not user and form.require_login:
-        return flask.redirect(flask.url_for("auth.login", next=flask.request.path))
+        return flask.redirect("/auth/login?next="+flask.request.path)
 
-    if form.launchpad_teams != "" and user:
+    if form.launchpad_teams and form.launchpad_teams != "" and user:
         for team in form.launchpad_teams.split(","):
             if not check_user_in_team(user.email, team.strip()):
                 return flask.redirect(
                     flask.url_for("auth.login", next=flask.request.path)
                 )
-
-    return render_template("forms/base_canonical_form.html", form=form)
+    print(user)
+    return render_template("forms/base_canonical_form.html", form=form, **user)

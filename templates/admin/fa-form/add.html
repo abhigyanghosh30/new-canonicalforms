@@ -1,4 +1,4 @@
-{% extends "base_canonical.html" %}
+{% extends "admin/base_admin.html" %}
 {% block content %}
     <section class="p-section">
         <div class="row">
@@ -6,31 +6,23 @@
             <p>Use the form below to add a new form.</p>
         </div>
         <div class="row">
-            <form method="POST" action="{{ url_for('admin.add_fa_form') }}">
+            <form method="post" action="{{ url_for('admin.add_fa_form') }}">
                 <label for="form_id">Form ID</label>
                 <input type="text" id="form_id" name="id" required>
-                
                 <label for="title">Title</label>
                 <input type="text" id="title" name="title" required>
-                
                 <label for="description">Description</label>
                 <textarea id="description" name="description"></textarea>
-                
                 <label for="raw_content">Raw Content</label>
                 <textarea id="raw_content" name="raw_content"></textarea>
-
                 <label for="thanks_page">Thanks Page</label>
                 <input type="text" id="thanks_page" name="thanks_page">
-                
                 <label for="require_login">Require Login</label>
                 <input type="checkbox" id="require_login" name="require_login">
-                
                 <label for="launchpad_team">Launchpad Team</label>
                 <input type="text" id="launchpad_team" name="launchpad_team">
-
                 <label for="require_js">Require JS</label>
                 <input type="checkbox" id="require_js" name="require_js">
-                
                 <button type="submit" class="p-button--positive">Add Form</button>
             </form>
         </div>

@@ -15,6 +15,10 @@ def render_form(formid):
     if not form:
         abort(404)
 
+    if not form.require_login:
+        # If the form does not require login, we can render it without checking user session
+        return render_template("forms/base_canonical_form.html", form=form)
+
     if form.require_login and "openid" not in flask.session:
         return flask.redirect("/auth/login?next="+flask.request.path)
 
@@ -26,7 +30,7 @@ def render_form(formid):
         for team in form.launchpad_teams.split(","):
             if not check_user_in_team(user.email, team.strip()):
                 return flask.redirect(
-                    flask.url_for("auth.login", next=flask.request.path)
+                    flask.url_for("/auth/login?next="+flask.request.path)
                 )
     print(user)
     return render_template("forms/base_canonical_form.html", form=form, **user)

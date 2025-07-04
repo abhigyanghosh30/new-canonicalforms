@@ -1,9 +1,37 @@
 {% extends "base.html" %}
-
 {% block title %}Admin Panel{% endblock %}
-
 {% block navigation %}
-
+  <header id="navigation" class="p-navigation is-dark">
+    <div class="p-navigation__row--25-75">
+      <div class="p-navigation__banner">
+        <div class="p-navigation__tagged-logo">
+          <a class="p-navigation__link" href="{{ url_for('admin.index') }}">
+            <div class="p-navigation__logo-tag">
+              <img class="p-navigation__logo-icon"
+                   src="https://assets.ubuntu.com/v1/82818827-CoF_white.svg"
+                   alt="">
+            </div>
+            <span class="p-navigation__logo-title">Forms Admin</span>
+          </a>
+        </div>
+        <a href="#navigation" class="p-navigation__toggle--open" title="menu">Menu</a>
+        <a href="#navigation-closed"
+           class="p-navigation__toggle--close"
+           title="close menu">Close menu</a>
+      </div>
+      <nav class="p-navigation__nav" aria-label="Example sub navigation">
+        <ul class="p-navigation__items">
+          <li class="p-navigation__item">
+            <a class="p-navigation__link" href="{{ url_for('admin.index') }}">View Forms</a>
+          </li>
+          <li class="p-navigation__item">
+            <a class="p-navigation__link" href="{{ url_for('admin.add_fa_form')  }}">Add Form</a>
+          </li>
+          <li class="p-navigation__item">
+            <a class="p-navigation__link" href="#">Products</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 {% endblock %}
-
-{% block content %}

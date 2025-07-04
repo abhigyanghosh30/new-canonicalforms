@@ -20,7 +20,7 @@ def index():
 @bp.route("/fa-form/add", methods=["GET", "POST"])
 def add_fa_form():
     if flask.request.method == "GET":
-        return render_template("admin/fa-form/add.html")
+        return render_template("admin/fa-form.html")
     elif flask.request.method == "POST":
         id = flask.request.form.get("id")
         title = flask.request.form.get("title")
@@ -49,9 +49,12 @@ def edit_fa_form(formid):
     form = db.session.execute(db.select(FAForm).filter_by(id=formid)).scalar_one_or_none()
     if not form:
         flask.abort(404)
+    
+    print(form.require_login)
+
 
     if flask.request.method == "GET":
-        return render_template("admin/fa-form/edit.html", form=form)
+        return render_template("admin/fa-form.html", form=form)
     elif flask.request.method == "POST":
         form.title = flask.request.form.get("title")
         form.description = flask.request.form.get("description")
@@ -81,7 +84,9 @@ def duplicate_fa_form(formid):
         thanks_page=form.thanks_page,
         launchpad_teams=form.launchpad_teams
     )
-    return flask.render_template("admin/fa-form/edit.html", form=new_form)
+    db.session.add(new_form)
+    db.session.commit()
+    return flask.render_template("admin/fa-form.html", form=new_form)
 
 
 @login_canonicalstaff

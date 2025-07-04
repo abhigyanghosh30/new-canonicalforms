@@ -1,0 +1,53 @@
+{% extends "admin/base_admin.html" %}
+{% block content %}
+    <section class="p-section">
+        <div class="row">
+            {% if form %}
+            <h1 class="p-heading--1">Edit Form</h1>
+            <p>Use the form below to edit the form.</p>
+            {% else %}
+            <h1 class="p-heading--1">Add Form</h1>
+            <p>Use the form below to add a new form.</p>
+            {% endif %}
+        </div>
+        <div class="row">
+            <form method="post" action="{{ url_for('admin.add_fa_form') if not form else url_for('admin.edit_fa_form', formid=form.id) }}">
+                <label for="form_id" class="is-required">Form ID</label>
+                <input type="text" id="form_id" name="id" required aria-labelledby="form_id_help" value="{{ form.id if form else '' }}">
+                <p id="form_id_help" class="p-text--muted">This will be used for the Form URL. </p>
+
+                <label for="title" class="is-required">Title</label>
+                <input type="text" id="title" name="title" value="{{ form.title if form else '' }}" required>
+                
+                <label for="description">Description</label>
+                <textarea id="description" name="description">{{ form.description if form else '' }}</textarea>
+                
+                <label for="form_link" class="is-required">Form Link</label>
+                <input type="url" id="form_link" name="form_link" value="{{ form.form_link if form else '' }}" required>
+
+                <label for="thanks_page" class="is-required">Thanks Page</label>
+                <input type="text" id="thanks_page" name="thanks_page" value="{{ form.thanks_page if form else '' }}" required>
+
+
+                <label class="p-checkbox">
+                    <input type="checkbox" class="p-checkbox__input" id="require_login" name="require_login" aria-labelledby="require_login_label" {{ "checked" if form.require_login==True }}>
+                    <span class="p-checkbox__label" id="require_login_label">Require Login</span>   
+                </label>
+                
+                <label for="launchpad_team">Launchpad Team</label>
+                <input type="text" id="launchpad_team" name="launchpad_team" value="{{ form.launchpad_team if form else '' }}">
+
+                <label class="p-checkbox">
+                    <input type="checkbox" class="p-checkbox__input" id="require_js" aria-labelledby="require_js_label" name="require_js" {{ "checked" if form.require_js==True }}>
+                    <span class="p-checkbox__label" id="require_js_label">Require JS</span>
+                </label>
+                
+                {% if form %}
+                <button type="submit" class="p-button--positive">Save</button>
+                {% else %}
+                <button type="submit" class="p-button--positive">Add Form</button>
+                {% endif %}
+            </form>
+        </div>
+    </section>
+{% endblock %}

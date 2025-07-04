@@ -15,7 +15,12 @@ source .venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
-3. 
+3. Install JS dependencies and compile CSS
+```
+yarn install
+npm watch-css
+```
+4. 
 To run the website:
 ```
 flask run -p 8050 --debug

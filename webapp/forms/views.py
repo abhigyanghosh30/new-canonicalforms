@@ -16,7 +16,7 @@ def render_form(formid):
     if not form:
         abort(404)
 
-    form_content = requests.get(form.form_link).content
+    form_content = requests.get(form.form_link).content.decode("utf-8")
 
     if not form.require_login:
         # If the form does not require login, we can render it without checking user session

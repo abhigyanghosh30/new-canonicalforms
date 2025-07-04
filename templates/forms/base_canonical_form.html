@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}{{ form.title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block navigation %}
 {% include "canonical_navigation/navigation.html" %}
 {% endblock %}
 {% block content %}
-<p>{{ user }}</p>
+<p>{{email}}</p>
+<p>{{firstname}}</p>
 <div class="u-fixed-width">
     {% autoescape false %}
     {{ form }}

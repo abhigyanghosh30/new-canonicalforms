@@ -1,7 +1,7 @@
 import requests
 import flask
 from webapp.admin.models import FAForm
-from flask import render_template, abort
+from flask import render_template, abort, render_template_string
 
 from webapp.auth.launchpad import check_user_in_team
 from webapp.auth.login import user_info
@@ -20,7 +20,7 @@ def render_form(formid):
 
     if not form.require_login:
         # If the form does not require login, we can render it without checking user session
-        return render_template("forms/base_canonical_form.html", form=form_content)
+        return render_template("forms/base_canonical_form.html", title=form.title, form=form_content)
 
     if form.require_login and "openid" not in flask.session:
         return flask.redirect("/auth/login?next=" + flask.request.path)
@@ -35,5 +35,5 @@ def render_form(formid):
                 return flask.redirect(
                     flask.url_for("/auth/login?next=" + flask.request.path)
                 )
-    print(user)
-    return render_template("forms/base_canonical_form.html", form=form_content, **user)
+    form_rendered = render_template_string(form_content, **user)
+    return render_template("forms/base_canonical_form.html", title=form.title, form=form_rendered)

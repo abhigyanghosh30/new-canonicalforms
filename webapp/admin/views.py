@@ -26,7 +26,7 @@ def add_fa_form():
         title = flask.request.form.get("title")
         description = flask.request.form.get("description")
         require_login = flask.request.form.get("require_login") == "on"
-        raw_content = flask.request.form.get("raw_content")
+        form_link = flask.request.form.get("form_link")
         require_js = flask.request.form.get("require_js") == "on"
         thanks_page = flask.request.form.get("thanks_page")
 
@@ -35,7 +35,7 @@ def add_fa_form():
             title=title,
             description=description,
             require_login=require_login,
-            raw_content=raw_content,
+            form_link=form_link,
             require_js=require_js,
             thanks_page=thanks_page,
         )
@@ -56,7 +56,7 @@ def edit_fa_form(formid):
         form.title = flask.request.form.get("title")
         form.description = flask.request.form.get("description")
         form.require_login = flask.request.form.get("require_login") == "on"
-        form.raw_content = flask.request.form.get("raw_content")
+        form.form_link = flask.request.form.get("form_link")
         form.require_js = flask.request.form.get("require_js") == "on"
         form.thanks_page = flask.request.form.get("thanks_page")
         form.launchpad_teams = flask.request.form.get("launchpad_team", "").strip()

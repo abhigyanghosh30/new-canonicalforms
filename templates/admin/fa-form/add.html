@@ -8,21 +8,27 @@
         <div class="row">
             <form method="post" action="{{ url_for('admin.add_fa_form') }}">
                 <label for="form_id">Form ID</label>
-                <input type="text" id="form_id" name="id" required>
+                <input type="text" id="form_id" name="id" required aria-labelledby="form_id_help">
+                <p id="form_id_help" class="p-text--muted">This will be used for the Form URL. </p>
+
                 <label for="title">Title</label>
                 <input type="text" id="title" name="title" required>
                 <label for="description">Description</label>
                 <textarea id="description" name="description"></textarea>
-                <label for="raw_content">Raw Content</label>
-                <textarea id="raw_content" name="raw_content"></textarea>
+                <label for="form_link">Form Link</label>
+                <input type="url" id="form_link" name="form_link">
                 <label for="thanks_page">Thanks Page</label>
                 <input type="text" id="thanks_page" name="thanks_page">
-                <label for="require_login">Require Login</label>
-                <input type="checkbox" id="require_login" name="require_login">
+                <label class="p-checkbox">
+                    <input type="checkbox" class="p-checkbox__input" id="require_login" name="require_login" aria-labelledby="require_login_label">
+                    <span class="p-checkbox__label" id="require_login_label">Require Login</span>   
+                </label>
                 <label for="launchpad_team">Launchpad Team</label>
                 <input type="text" id="launchpad_team" name="launchpad_team">
-                <label for="require_js">Require JS</label>
-                <input type="checkbox" id="require_js" name="require_js">
+                <label class="p-checkbox">
+                    <input type="checkbox" class="p-checkbox__input" id="require_js" aria-labelledby="require_js_label" name="require_js">
+                    <span class="p-checkbox__label" id="require_js_label">Require JS</span>
+                </label>
                 <button type="submit" class="p-button--positive">Add Form</button>
             </form>
         </div>

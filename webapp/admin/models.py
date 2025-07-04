@@ -8,7 +8,7 @@ class FAForm(db.Model):
     title = db.Column(db.String(1024), unique=True)
     description = db.Column(db.String(1024))
     require_login = db.Column(db.Boolean)
-    raw_content = db.Column(db.Text)
+    form_link = db.Column(db.String(1024))
     require_js = db.Column(db.Boolean)
     launchpad_teams = db.Column(db.String(1024), nullable=True)
     # Foreign key to ThanksPage

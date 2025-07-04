@@ -10,6 +10,7 @@ from webapp.admin import views as admin_views
 from webapp.admin.models import db
 from webapp.context import build_navigation, split_list, versioned_static
 from webapp.forms.views import render_form
+from webapp.thanks.views import render_thanks_page
 
 app = flask.Flask(__name__)
 app.config.from_prefixed_env()
@@ -23,6 +24,7 @@ app.register_blueprint(admin_views.bp)
 app.register_blueprint(auth_views.bp)
 
 app.add_url_rule("/<formid>", view_func=render_form, methods=["GET"])
+app.add_url_rule("/thanks/<thanks_page_name>", view_func=render_thanks_page, methods=["GET"])
 
 @app.route("/")
 def index():

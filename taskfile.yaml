@@ -1,0 +1,55 @@
+version: "3"
+silent: true
+
+env: 
+  FLASK_SECRET_KEY: insecure-key
+  FLASK_SQLALCHEMY_DATABASE_URI: sqlite:///project.db
+
+tasks:
+  setup-python:
+    desc: "Set up Python environment"
+    cmds:
+      - echo "Setting up Python environment..."
+      - python3 -m venv .venv
+      - .venv/bin/activate
+      - pip install --upgrade pip
+      - pip install -r requirements.txt
+  setup-node:
+    desc: "Set up Node.js environment"
+    cmds:
+      - echo "Setting up Node.js environment..."
+      - yarn install
+      - yarn watch-css
+  default:
+    desc: "Run the Flask application"
+    deps: [setup-python, setup-node]
+    cmds:
+      - echo "Starting Flask application..."
+      - flask run -p 8050 --debug
+  
+  rock-pack:
+    desc: "Build the Rock package"
+    cmds:
+      - echo "Building Rock package..."
+      - rockcraft pack --verbose
+
+  rock-push-image:
+    desc: "Push the Rock image to the registry"
+    deps: [rock-pack]
+    sources:
+      - forms-canonical-com*.rock
+    cmds:
+      - echo "Building Rock image..."
+      - rockcraft.skopeo copy --insecure-policy oci-archive:forms-canonical-com_0.1_amd64.rock docker-daemon:forms-canonical-com:latest
+  
+  rock-start:
+    desc: "Start the Rock container"
+    deps: [rock-push-image]
+    cmds:
+      - echo "Starting Rock container..."
+      - docker run --rm --name forms-canonical-com -p 8000:8000 forms-canonical-com:latest
+
+  pebble-log:
+    desc: "Show Pebble logs"
+    cmds:
+      - docker exec forms-canonical-com pebble logs

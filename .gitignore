@@ -3,3 +3,6 @@ instance/project.db
 **/__pycache__/
 node_modules/
 **/dist/
+*.rock
+.vscode/
+.task/

@@ -1,0 +1,35 @@
+name: forms-canonical-com
+base: ubuntu@24.04 # the base environment for this Flask application
+version: "0.1" # just for humans. Semantic versioning is recommended
+summary: A summary of your Flask application # 79 char long summary
+description: |
+  This is new-canonicalforms's description. You have a paragraph or two to tell the
+  most important story about it. Keep it under 100 words though,
+  we live in tweetspace and your description wants to look good in the
+  container registries out there.
+
+platforms:
+  amd64:
+
+extensions:
+  - flask-framework
+
+parts:
+  flask-framework/install-app:
+    prime:
+      - flask/app/.env
+      - flask/app/app.py
+      - flask/app/webapp
+      - flask/app/templates
+      - flask/app/static
+  frontend:
+    plugin: nil
+    source: .
+    source-type: local
+    build-snaps:
+      - node/22/stable
+    override-build: |
+      craftctl default
+      yarn install
+      yarn build-css
+      cp -R dist "${CRAFT_PART_INSTALL}/app/static/"

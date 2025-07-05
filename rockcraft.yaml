@@ -22,6 +22,7 @@ parts:
       - flask/app/webapp
       - flask/app/templates
       - flask/app/static
+      - flask/app/data
   frontend:
     plugin: nil
     source: .
@@ -32,4 +33,3 @@ parts:
       craftctl default
       yarn install
       yarn build-css
-      cp -R dist "${CRAFT_PART_INSTALL}/app/static/"

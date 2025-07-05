@@ -47,7 +47,7 @@ tasks:
     deps: [rock-push-image]
     cmds:
       - echo "Starting Rock container..."
-      - docker run --rm --name forms-canonical-com -p 8000:8000 forms-canonical-com:latest
+      - docker run --rm --name forms-canonical-com -p 8000:8000 -e FLASK_SECRET_KEY="insecure-key" -e FLASK_SQLALCHEMY_DATABASE_URI="sqlite:///project.db" forms-canonical-com:latest
 
   pebble-log:
     desc: "Show Pebble logs"

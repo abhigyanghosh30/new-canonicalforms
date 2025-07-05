@@ -30,7 +30,7 @@
 
 
                 <label class="p-checkbox">
-                    <input type="checkbox" class="p-checkbox__input" id="require_login" name="require_login" aria-labelledby="require_login_label" {{ "checked" if form.require_login==True }}>
+                    <input type="checkbox" class="p-checkbox__input" id="require_login" name="require_login" aria-labelledby="require_login_label" {{ "checked" if form and form.require_login==True }}>
                     <span class="p-checkbox__label" id="require_login_label">Require Login</span>   
                 </label>
                 
@@ -38,7 +38,7 @@
                 <input type="text" id="launchpad_team" name="launchpad_team" value="{{ form.launchpad_team if form else '' }}">
 
                 <label class="p-checkbox">
-                    <input type="checkbox" class="p-checkbox__input" id="require_js" aria-labelledby="require_js_label" name="require_js" {{ "checked" if form.require_js==True }}>
+                    <input type="checkbox" class="p-checkbox__input" id="require_js" aria-labelledby="require_js_label" name="require_js" {{ "checked" if form and form.require_js==True }}>
                     <span class="p-checkbox__label" id="require_js_label">Require JS</span>
                 </label>
                 

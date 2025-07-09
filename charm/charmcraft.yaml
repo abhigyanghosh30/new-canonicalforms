@@ -1,0 +1,40 @@
+# This file configures Charmcraft.
+# See https://juju.is/docs/sdk/charmcraft-config for guidance.
+
+name: forms-canonical-com
+
+type: charm
+
+bases:
+  - build-on:
+    - name: ubuntu
+      channel: "22.04"
+    run-on:
+    - name: ubuntu
+      channel: "22.04"
+
+# (Required)
+summary: A very short one-line summary of the Flask application.
+
+# (Required)
+description: |
+  A comprehensive overview of your Flask application.
+
+extensions:
+  - flask-framework
+
+requires:
+  postgresql:
+    interface: postgresql_client
+    optional: false
+    limit: 1
+
+config: 
+  options:
+    flask_secret_key:
+      type: secret
+      description: The secret key for Flask sessions.
+    flask_sqlalchemy_database_uri:
+      type: string
+      default: sqlite:///project.db
+      description: The SQLAlchemy database URI for Flask.

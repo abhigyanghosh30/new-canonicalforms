@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8050:8050"
+    # volumes:
+    #   - .:/app
+    env_file:
+      - .env
+    links: 
+      - postgres
+    command: flask run
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+    ports:
+      - "5432:5432"

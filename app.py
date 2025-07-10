@@ -16,6 +16,7 @@ app = flask.Flask(__name__)
 app.config.from_prefixed_env()
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("POSTGRESQL_DB_CONNECT_STRING")
+print(app.config.get("SQLALCHEMY_DATABASE_URI"))
 db.init_app(app)
 with app.app_context():
     db.create_all()

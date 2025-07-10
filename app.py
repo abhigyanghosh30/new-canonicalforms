@@ -15,7 +15,7 @@ from webapp.thanks.views import render_thanks_page
 app = flask.Flask(__name__)
 app.config.from_prefixed_env()
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_SQLALCHEMY_DATABASE_URI")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("POSTGRESQL_DB_CONNECT_STRING")
 db.init_app(app)
 with app.app_context():
     db.create_all()

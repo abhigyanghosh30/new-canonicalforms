@@ -31,10 +31,10 @@ requires:
 
 config: 
   options:
-    flask_secret_key:
+    secret:
       type: secret
       description: The secret key for Flask sessions.
-    flask_sqlalchemy_database_uri:
+    sqlalchemy-database-uri:
       type: string
       default: sqlite:///project.db
       description: The SQLAlchemy database URI for Flask.

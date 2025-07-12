@@ -13,7 +13,7 @@
         <div class="row">
             <form method="post" action="{{ url_for('admin.add_thanks_page') if not form else url_for('admin.edit_thanks_page', thanks_page_name=form.page_name) }}">
                 <label for="page_name" class="is-required">Page Name</label>
-                <input type="text" id="page_name" name="id" required aria-labelledby="page_name_help" value="{{ form.id if form else '' }}">
+                <input type="text" id="page_name" name="name" required aria-labelledby="page_name_help" value="{{ form.name if form else '' }}">
                 <p id="page_name_help" class="p-text--muted">This will be used for the Thanks Page URL. </p>
 
                 <label for="title" class="is-required">Title</label>

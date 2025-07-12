@@ -7,23 +7,32 @@ from webapp.admin.models import ThanksPage, db, FAForm
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 
+@login_canonicalstaff
 @bp.route("/", methods=["GET"])
-@login_required
 def index():
     """
     Admin index page.
     """
-    print(url_for("dist.static", filename="styles.css"))
-    print(os.listdir("/"))
     forms = db.session.execute(db.select(FAForm).order_by(FAForm.title)).scalars()
-    return render_template("admin/index.html", forms=forms)
+    pages = db.session.execute(db.select(ThanksPage).order_by(ThanksPage.title)).scalars()
+    return render_template("admin/index.html", forms=forms, pages=pages)
+
+
+@login_canonicalstaff
+@bp.route("/fa-form", methods=["GET"])
+def view_forms():
+    """
+    View all forms.
+    """
+    forms = db.session.execute(db.select(FAForm).order_by(FAForm.title)).scalars()
+    return render_template("admin/fa_forms/index.html", forms=forms)
 
 
 @login_canonicalstaff
 @bp.route("/fa-form/add", methods=["GET", "POST"])
 def add_fa_form():
     if flask.request.method == "GET":
-        return render_template("admin/fa_form.html")
+        return render_template("admin/fa_forms/add.html")
     elif flask.request.method == "POST":
         id = flask.request.form.get("id")
         title = flask.request.form.get("title")
@@ -55,7 +64,7 @@ def edit_fa_form(formid):
     print(form.require_login)
 
     if flask.request.method == "GET":
-        return render_template("admin/fa_form.html", form=form)
+        return render_template("admin/fa_forms/add.html", form=form)
     elif flask.request.method == "POST":
         form.id = flask.request.form.get("id")
         form.title = flask.request.form.get("title")
@@ -86,7 +95,7 @@ def duplicate_fa_form(formid):
     )
     db.session.add(new_form)
     db.session.commit()
-    return flask.render_template("admin/fa_form.html", form=new_form)
+    return flask.render_template("admin/fa_forms/add.html", form=new_form)
 
 
 @login_canonicalstaff
@@ -104,10 +113,19 @@ def delete_fa_form(formid):
 
 
 @login_canonicalstaff
+@bp.route("/thanks-page", methods=["GET"])
+def view_thanks_pages():
+    """
+    View all thanks pages.
+    """
+    thanks_pages = db.session.execute(db.select(ThanksPage).order_by(ThanksPage.title)).scalars()
+    return render_template("admin/thanks_pages/index.html", pages=thanks_pages)
+
+@login_canonicalstaff
 @bp.route("/thanks-page/add", methods=["GET", "POST"])
 def add_thanks_page():
     if flask.request.method == "GET":
-        return render_template("admin/thanks_page.html")
+        return render_template("admin/thanks_pages/add.html")
     elif flask.request.method == "POST":
         name = flask.request.form.get("name")
         title = flask.request.form.get("title")
@@ -129,7 +147,7 @@ def edit_thanks_page(thanks_page_name):
         flask.abort(404)
 
     if flask.request.method == "GET":
-        return render_template("admin/thanks_page.html", form=thanks_page)
+        return render_template("admin/thanks_pages/add.html", form=thanks_page)
     elif flask.request.method == "POST":
         thanks_page.title = flask.request.form.get("title")
         thanks_page.content = flask.request.form.get("content")

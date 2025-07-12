@@ -21,7 +21,7 @@
             <a class="p-navigation__link" href="#link-1-menu" aria-controls="link-1-menu">Forms</a>
             <ul class="p-navigation__dropdown" id="link-1-menu" aria-hidden="true">
               <li>
-                <a href="{{ url_for("admin.index") }}" class="p-navigation__dropdown-item">View Forms</a>
+                <a href="{{ url_for("admin.view_forms") }}" class="p-navigation__dropdown-item">View Forms</a>
               </li>
               <li>
                 <a href="{{ url_for("admin.add_fa_form") }}" class="p-navigation__dropdown-item">Add Form</a>
@@ -32,10 +32,10 @@
             <a class="p-navigation__link" href="link-2-menu" aria-controls="link-2-menu">Thanks Page</a>
             <ul class="p-navigation__dropdown" id="link-2-menu" aria-hidden="true">
               <li>
-                <a href="{{ url_for("admin.add_fa_form") }}" class="p-navigation__dropdown-item">View Thanks Pages</a>
+                <a href="{{ url_for("admin.view_thanks_pages") }}" class="p-navigation__dropdown-item">View Thanks Pages</a>
               </li>
               <li>
-                <a href="{{ url_for("admin.add_fa_form") }}" class="p-navigation__dropdown-item">Add Thanks Page</a>
+                <a href="{{ url_for("admin.add_thanks_page") }}" class="p-navigation__dropdown-item">Add Thanks Page</a>
               </li>
           </li>
         </ul>

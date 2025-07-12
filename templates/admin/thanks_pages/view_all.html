@@ -1,0 +1,50 @@
+<section class="p-section">
+    <div class="p-strip">
+        <div class="row--50-50">
+            <div class="col">
+                <h2 class="p-heading--4">Thanks Page List</h2>
+            </div>
+            <div class="col">
+                <a class="p-button--positive"
+                   href="{{ url_for("admin.add_thanks_page") }}">Add Thanks Page</a>
+            </div>
+        </div>
+    </div>
+    <div class="u-fixed-width">
+        <div class="row">
+            <div class="col-6">
+                <table aria-label="Thanks Page List">
+                    <thead>
+                        <tr>
+                            <th>Page Name</th>
+                            <th>Title</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for page in pages %}
+                        <tr>
+                            <td>{{ page.name }}</td>
+                            <td>{{ page.title }}</td>
+                            <td>
+                                <a href="{{ url_for('admin.edit_thanks_page', thanks_page_name=page.name) }}">
+                                    <i class="p-icon--edit">Edit</i>
+                                </a>
+                                <a onclick="deletePage('{{page.name}}')"><i class="p-icon--delete">Delete</i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </section>
+<script>
+function deletePage(pageName) {
+    if (confirm(`Are you sure you want to delete the thanks page ${pageName}? This action cannot be undone.`)) {
+        window.location.href = `/admin/thanks-page/${pageName}/delete`;
+    }
+}
+</script>
+

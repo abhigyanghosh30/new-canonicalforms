@@ -1,0 +1,34 @@
+{% extends "admin/base_admin.html" %}
+{% block content %}
+    <section class="p-section">
+        <div class="row">
+            {% if form %}
+            <h1 class="p-heading--1">Edit Form</h1>
+            <p>Use the form below to edit the form.</p>
+            {% else %}
+            <h1 class="p-heading--1">Add Form</h1>
+            <p>Use the form below to add a new form.</p>
+            {% endif %}
+        </div>
+        <div class="row">
+            <form method="post" action="{{ url_for('admin.add_thanks_page') if not form else url_for('admin.edit_thanks_page', thanks_page_name=form.page_name) }}">
+                <label for="page_name" class="is-required">Page Name</label>
+                <input type="text" id="page_name" name="id" required aria-labelledby="page_name_help" value="{{ form.id if form else '' }}">
+                <p id="page_name_help" class="p-text--muted">This will be used for the Thanks Page URL. </p>
+
+                <label for="title" class="is-required">Title</label>
+                <input type="text" id="title" name="title" value="{{ form.title if form else '' }}" required>
+
+                <label for="content">Content</label>
+                <textarea id="content" name="content">{{ form.content if form else '' }}</textarea>
+                 
+                {% if form %}
+                <button type="submit" class="p-button--positive">Save</button>
+                {% else %}
+                <button type="submit" class="p-button--positive">Add Form</button>
+                {% endif %}
+
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -1,8 +1,8 @@
 {
   "dependencies": {},
   "scripts": {
-    "build-css": "sass --load-path=node_modules static/sass:static/dist --style=compressed",
-    "watch-css": "yarn build-css && sass --load-path=node_modules -w static/sass:static/dist --style=compressed"
+    "build-css": "sass --load-path=node_modules static/sass:./dist --style=compressed",
+    "watch-css": "yarn build-css && sass --load-path=node_modules -w static/sass:./dist --style=compressed"
   },
   "devDependencies": {
     "sass": "^1.89.2",

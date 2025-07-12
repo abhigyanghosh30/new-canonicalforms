@@ -1,0 +1,40 @@
+<section class="p-section">
+    <div class="p-strip">
+        <div class="row--50-50">
+            <div class="col">
+                <h2 class="p-heading--4">Thanks Page List</h2>
+            </div>
+            <div class="col">
+                <a class="p-button--positive"
+                   href="{{ url_for("admin.add_thanks_page") }}">Add Thanks Page</a>
+            </div>
+        </div>
+    </div>
+    <div class="u-fixed-width">
+        <table aria-label="Thanks Page List">
+            <thead>
+                <tr>
+                    <td>Page Name</td>
+                    <td>Title</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page in pages %}
+                <tr>
+                    <td>{{ page.page_name }}</td>
+                    <td>{{ page.title }}</td>
+                    <td>
+                        <a href="{{ url_for('admin.edit_thanks_page', thanks_page_name=page.page_name) }}">
+                            <i class="p-icon--edit">Edit</i>
+                        </a>
+                        <a href="{{ url_for('admin.delete_thanks_page', thanks_page_name=page.page_name) }}"
+                           onclick="return confirm('Are you sure you want to delete this thanks page        {{ page.page_name }}? This action cannot be undone.');">
+                            <i class="p-icon--delete">Delete</i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>

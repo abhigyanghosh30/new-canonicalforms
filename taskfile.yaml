@@ -26,7 +26,34 @@ tasks:
     cmds:
       - echo "Starting Flask application..."
       - flask run -p 8050 --debug
+    
+  docker-build-app:
+    desc: "Build the Docker app image"
+    cmds:
+      - echo "Building Docker app image..."
+      - docker build -t forms-canonical-com .  
+
+  docker-run-app:
+    desc: "Run the Docker app container"
+    deps: [docker-build-app]
+    cmds:
+      - echo "Running Docker app container..."
+      - docker run -it -v $PWD:/srv --add-host=host.docker.internal:host-gateway -e FLASK_SECRET_KEY="insecure-key" -e POSTGRESQL_DB_CONNECT_STRING="sqlite:///project.db" forms-canonical-com bash -c "flask run --debug -p 8050"
   
+  docker-build-postgres:
+    desc: "Build the Docker Postgres image"
+    cmds:
+      - echo "Building Docker Postgres image..."
+      - docker pull postgres:latest
+      - docker run --name postgres -e POSTGRES_HOST_AUTH_METHOD=trust -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=mydatabase -p 5432:5432 -d postgres:latest
+
+  docker-run-frontend:
+    desc: "Run the Docker frontend container"
+    cmds:
+      - echo "Running Docker frontend container..."
+      - docker build -t forms-canonical-com-frontend --target=css_build .
+      - docker run -it -v $PWD:/srv forms-canonical-com-frontend bash -c "yarn watch-css"
+
   rock-pack:
     desc: "Build the Rock package"
     cmds:

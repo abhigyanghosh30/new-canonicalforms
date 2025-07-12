@@ -5,7 +5,7 @@
     <div class="p-navigation__row--25-75">
       <div class="p-navigation__banner">
         <div class="p-navigation__tagged-logo">
-          <a class="p-navigation__link" href="{{ url_for('admin.index') }}">
+          <a class="p-navigation__link" href="{{ url_for("admin.index") }}">
             <div class="p-navigation__logo-tag">
               <img class="p-navigation__logo-icon"
                    src="https://assets.ubuntu.com/v1/82818827-CoF_white.svg"
@@ -17,14 +17,78 @@
       </div>
       <nav class="p-navigation__nav" aria-label="Example sub navigation">
         <ul class="p-navigation__items">
-          <li class="p-navigation__item">
-            <a class="p-navigation__link" href="{{ url_for('admin.index') }}">View Forms</a>
+          <li class="p-navigation__item--dropdown-toggle" id="link-1">
+            <a class="p-navigation__link" href="#link-1-menu" aria-controls="link-1-menu">Forms</a>
+            <ul class="p-navigation__dropdown" id="link-1-menu" aria-hidden="true">
+              <li>
+                <a href="{{ url_for("admin.index") }}" class="p-navigation__dropdown-item">View Forms</a>
+              </li>
+              <li>
+                <a href="{{ url_for("admin.add_fa_form") }}" class="p-navigation__dropdown-item">Add Form</a>
+              </li>
+            </ul>
           </li>
-          <li class="p-navigation__item">
-            <a class="p-navigation__link" href="{{ url_for('admin.add_fa_form')  }}">Add Form</a>
+          <li class="p-navigation__item--dropdown-toggle" id="link-2">
+            <a class="p-navigation__link" href="link-2-menu" aria-controls="link-2-menu">Thanks Page</a>
+            <ul class="p-navigation__dropdown" id="link-2-menu" aria-hidden="true">
+              <li>
+                <a href="{{ url_for("admin.add_fa_form") }}" class="p-navigation__dropdown-item">View Thanks Pages</a>
+              </li>
+              <li>
+                <a href="{{ url_for("admin.add_fa_form") }}" class="p-navigation__dropdown-item">Add Thanks Page</a>
+              </li>
           </li>
         </ul>
       </nav>
     </div>
   </header>
+  <script>
+    function toggleDropdown(toggle, open) {
+      var parentElement = toggle.parentNode;
+      var dropdown = document.getElementById(toggle.getAttribute('aria-controls'));
+      dropdown.setAttribute('aria-hidden', !open);
+
+      if (open) {
+        parentElement.classList.add('is-active');
+      } else {
+        parentElement.classList.remove('is-active');
+      }
+    }
+
+    function closeAllDropdowns(toggles) {
+      toggles.forEach(function(toggle) {
+        toggleDropdown(toggle, false);
+      });
+    }
+
+    function handleClickOutside(toggles, containerClass) {
+      document.addEventListener('click', function(event) {
+        var target = event.target;
+
+        if (target.closest) {
+          if (!target.closest(containerClass)) {
+            closeAllDropdowns(toggles);
+          }
+        }
+      });
+    }
+
+    function initNavDropdowns(containerClass) {
+      var toggles = [].slice.call(document.querySelectorAll(containerClass + ' [aria-controls]'));
+
+      handleClickOutside(toggles, containerClass);
+
+      toggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          const shouldOpen = !toggle.parentNode.classList.contains('is-active');
+          closeAllDropdowns(toggles);
+          toggleDropdown(toggle, shouldOpen);
+        });
+      });
+    }
+
+    initNavDropdowns('.p-navigation__item--dropdown-toggle')
+  </script>
 {% endblock %}

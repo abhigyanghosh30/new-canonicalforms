@@ -1,31 +1,34 @@
 FROM node:22 AS css_build
 # Set the working directory
-WORKDIR /app
+WORKDIR /srv
 # Install Node.js dependencies
-ADD package.json .
-ADD yarn.lock .
+ADD . .
 # Install the necessary packages
 RUN yarn install 
 # Copy the source files
-ADD static /app/static
-RUN yarn build-css
-# Build the CSS files again to ensure they are up-to-date
+ADD static static
 RUN yarn build-css
 
 
-FROM ubuntu:jammy
+
+FROM ubuntu:noble
 # Install dependencies
-RUN apt-get update && \
-apt-get install -y python3 python3-pip
+RUN apt-get update && apt-get install --no-install-recommends --yes \
+  python3 python3-pip python3-venv ca-certificates
 # Copy the requirements file and install Python dependencies
 
 
-WORKDIR /app
+WORKDIR /srv
+
+RUN python3 -m venv /venv
+ENV PATH="/venv/bin:${PATH}"
 
 ADD requirements.txt .
-# Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
-# Copy the application code
+RUN pip3 config set global.disable-pip-version-check true
+RUN python3 -m venv /venv
+ENV PATH="/venv/bin:${PATH}"
+RUN --mount=type=cache,target=/root/.cache/pip pip3 install -r requirements.txt
 
 ADD . .
-COPY --from=css_build /app/static/dist /app/static/dist 
+# Copy the compiles CSS
+COPY --from=css_build /srv/dist dist

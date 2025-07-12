@@ -1,0 +1,55 @@
+<section class="p-section">
+    <div class="p-strip">
+        <div class="row--50-50">
+            <div class="col">
+                <h2 class="p-heading--4">
+                    Formassembly Form List
+                </h2>
+            </div>
+            <div class="col">
+                <a class="p-button--positive" href="{{ url_for('admin.add_fa_form') }}">
+                    Add Form
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="u-fixed-width">
+        <table aria-label="FA Form List">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Link</td>
+              <td>Description</td>
+              <td>Thanks Page</td>
+              <td>Require Login</td>
+              <td>Require JS</td>
+              <td>Actions</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for form in forms %}
+            <tr>
+                <td>{{ form.title }}</td>
+                <td><a target="_blank" href="/{{ form.id }}">View</a></td>
+                <td>{{ form.description }}</td>
+                <td>{{ form.thanks_page }}</td>
+                <td>{{ form.require_login }}</td>
+                <td>{{ form.require_js }}</td>
+                <td>
+                    <a href="/admin/fa-form/{{form.id}}/edit"><i class="p-icon--edit">Edit</i></a>
+                    <a href="/admin/fa-form/{{form.id}}/duplicate"><i class="p-icon--add-canvas">Duplicate</i></a>
+                    <a onclick="deleteForm('{{form.id}}')"><i class="p-icon--delete">Delete</i></a>
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</section>
+<script>
+function deleteForm(formId) {
+    if (confirm(`Are you sure you want to delete the form ${formId}? This action cannot be undone.`)) {
+        window.location.href = `/admin/fa-form/${formId}/delete`;
+    }
+}
+</script>

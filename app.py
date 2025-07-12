@@ -3,7 +3,7 @@ import flask
 
 from slugify import slugify
 
-from flask import redirect
+from flask import Blueprint, redirect
 
 from webapp.auth import views as auth_views
 from webapp.admin import views as admin_views
@@ -16,7 +16,7 @@ app = flask.Flask(__name__)
 app.config.from_prefixed_env()
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("POSTGRESQL_DB_CONNECT_STRING")
-print(app.config.get("SQLALCHEMY_DATABASE_URI"))
+
 db.init_app(app)
 with app.app_context():
     db.create_all()
@@ -24,8 +24,12 @@ with app.app_context():
 app.register_blueprint(admin_views.bp)
 app.register_blueprint(auth_views.bp)
 
+compiled_css = Blueprint("dist", __name__, static_folder="dist", static_url_path="/dist")
+app.register_blueprint(compiled_css)
+
 app.add_url_rule("/<formid>", view_func=render_form, methods=["GET"])
 app.add_url_rule("/thanks/<thanks_page_name>", view_func=render_thanks_page, methods=["GET"])
+
 
 @app.route("/")
 def index():

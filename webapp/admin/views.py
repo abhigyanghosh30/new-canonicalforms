@@ -39,6 +39,7 @@ def add_fa_form():
         description = flask.request.form.get("description")
         require_login = flask.request.form.get("require_login") == "on"
         form_link = flask.request.form.get("form_link")
+        theme_name = flask.request.form.get("theme_name", "canonical").strip()
 
         form = FAForm(
             id=id,
@@ -46,6 +47,7 @@ def add_fa_form():
             description=description,
             require_login=require_login,
             form_link=form_link,
+            theme_name=theme_name,
         )
         db.session.add(form)
         db.session.commit()
@@ -61,8 +63,6 @@ def edit_fa_form(formid):
     if not form:
         flask.abort(404)
 
-    print(form.require_login)
-
     if flask.request.method == "GET":
         return render_template("admin/fa_forms/add.html", form=form)
     elif flask.request.method == "POST":
@@ -72,6 +72,7 @@ def edit_fa_form(formid):
         form.form_link = flask.request.form.get("form_link")
         form.require_login = flask.request.form.get("require_login") == "on"
         form.launchpad_teams = flask.request.form.get("launchpad_team", "").strip()
+        form.theme_name = flask.request.form.get("theme_name", "canonical").strip()
         db.session.commit()
         return flask.redirect(flask.url_for("admin.index"))
 
@@ -92,6 +93,7 @@ def duplicate_fa_form(formid):
         form_link=form.form_link,
         require_login=form.require_login,
         launchpad_teams=form.launchpad_teams,
+        theme_name=form.theme_name,
     )
     db.session.add(new_form)
     db.session.commit()

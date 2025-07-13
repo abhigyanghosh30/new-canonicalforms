@@ -25,6 +25,12 @@
                 <label for="form_link" class="is-required">Form Link</label>
                 <input type="url" id="form_link" name="form_link" value="{{ form.form_link if form else '' }}" required>
                 
+                <label for="theme_name" class="is-required">Theme Name</label>
+                <select name="theme_name" id="theme_name" required>
+                    <option value="canonical" {{ 'selected' if form and form.theme_name=='canonical'}}>Canonical</option>
+                    <option value="ubuntu" {{ 'selected' if form and form.theme_name=='ubuntu'}}>Ubuntu</option>
+                </select>
+
                 <label class="p-checkbox">
                     <input type="checkbox" class="p-checkbox__input" id="require_login" name="require_login" aria-labelledby="require_login_label" {{ "checked" if form and form.require_login==True }}>
                     <span class="p-checkbox__label" id="require_login_label">Require Login</span>   

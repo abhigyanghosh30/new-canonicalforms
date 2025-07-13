@@ -10,6 +10,7 @@ class FAForm(db.Model):
     require_login = db.Column(db.Boolean)
     form_link = db.Column(db.String(1024))
     launchpad_teams = db.Column(db.String(1024), nullable=True)
+    theme_name = db.Column(db.String(1024), nullable=True)
 
 
 class ThanksPage(db.Model):

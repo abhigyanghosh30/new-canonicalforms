@@ -7,8 +7,8 @@ from markupsafe import Markup
 from flask import render_template_string, current_app
 
 # Read meganav.yaml
-with open("data/navigation.yaml") as meganav_file:
-    meganav_data = yaml.load(meganav_file.read(), Loader=yaml.FullLoader)
+with open("data/canonical_navigation.yaml") as meganav_file:
+    canonical_meganav_data = yaml.load(meganav_file.read(), Loader=yaml.FullLoader)
 
 
 def build_navigation(id, title):
@@ -17,7 +17,7 @@ def build_navigation(id, title):
     This function is made globally avaiable and then called from the
     jinja template 'dropdown.html'
     """
-    meganav_section = meganav_data[id]
+    meganav_section = canonical_meganav_data[id]
     html_string = render_template_string(
         '{% include "canonical_navigation/dropdown.html" %}',
         id=id,

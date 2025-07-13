@@ -20,7 +20,9 @@ def render_form(formid):
 
     if not form.require_login:
         # If the form does not require login, we can render it without checking user session
-        return render_template("forms/base_canonical_form.html", title=form.title, form=form_content)
+        return render_template(
+            f"forms/base_{form.theme_name}_form.html", title=form.title, form=form_content
+        )
 
     if form.require_login and "openid" not in flask.session:
         return flask.redirect("/auth/login?next=" + flask.request.path)
@@ -36,4 +38,6 @@ def render_form(formid):
                     flask.url_for("/auth/login?next=" + flask.request.path)
                 )
     form_rendered = render_template_string(form_content, **user)
-    return render_template("forms/base_canonical_form.html", title=form.title, form=form_rendered)
+    return render_template(
+        f"forms/base_{form.theme_name}_form.html", title=form.title, form=form_rendered
+    )

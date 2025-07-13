@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block navigation %}
-{% include "forms/partials/canonical_navigation.html" %}
+{% include "forms/partials/ubuntu_navigation.html" %}
 {% endblock %}
 
 {% block content %}
@@ -14,9 +14,10 @@
     {{ form }}
     {% endautoescape %}
 </div>
+<script defer src="{{ versioned_static('js/navigation.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('dist.static', filename='base_canonical.css') }}" />
 {% endblock %}
 
 {% block footer %} 
-{% include "forms/partials/canonical_footer.html" %}
+{% include "forms/partials/ubuntu_footer.html" %}
 {% endblock %}

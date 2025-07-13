@@ -1,0 +1,14 @@
+@import "vanilla-framework";
+@include vanilla;
+
+@include vf-base;
+
+@include vf-button-positive;
+
+.wForm .section {
+  border: $border;
+}
+
+.wForm .primaryAction {
+    @extend .p-button--positive;
+}

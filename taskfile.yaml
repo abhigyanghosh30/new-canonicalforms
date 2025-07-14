@@ -38,7 +38,7 @@ tasks:
     deps: [docker-build-app]
     cmds:
       - echo "Running Docker app container..."
-      - docker run -it -v $PWD:/srv --add-host=host.docker.internal:host-gateway -e FLASK_SECRET_KEY="insecure-key" -e POSTGRESQL_DB_CONNECT_STRING="sqlite:///project.db" forms-canonical-com bash -c "flask run --debug -p 8050"
+      - docker run -it -p 8050:8050 -v $PWD:/srv -e FLASK_SECRET_KEY="insecure-key" -e POSTGRESQL_DB_CONNECT_STRING="sqlite:///project.db" forms-canonical-com bash -c "flask run --debug"
   
   docker-build-postgres:
     desc: "Build the Docker Postgres image"

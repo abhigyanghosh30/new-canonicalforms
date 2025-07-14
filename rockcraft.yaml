@@ -33,5 +33,5 @@ parts:
       craftctl default
       yarn install
       yarn build-css
-      mkdir -p "${CRAFT_PART_INSTALL}/flask/app/static"
-      cp -R dist "${CRAFT_PART_INSTALL}/flask/app/static"
+      mkdir -p "${CRAFT_PART_INSTALL}/flask/app"
+      cp -R dist "${CRAFT_PART_INSTALL}/flask/app"
